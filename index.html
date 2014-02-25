@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="jquery.mobile-1.4.1.min.css">
+<link rel="stylesheet" href="jquery.mobile.structure-1.4.1.min.css">
+<link rel="stylesheet" href="jquery.mobile.theme-1.4.1.min.css">
+<link rel="stylesheet" href="sight-feb.min.css">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div data-role="page" data-theme="a" id="one" >
+    <div data-role="header">
+    <h2>Sight Words</h2>
+  </div>
+  <div id="words">
+<button class="ui-btn ui-corner-all" data-word"The"></button>
+<button class="ui-btn ui-corner-all" data-word="Blue"></button>
+<button class="ui-btn ui-corner-all" data-word="Four"></button>
+<button class="ui-btn ui-corner-all" data-word="And"></button>
+  </div>
+  <div id="nav-buttons">
+  <button id="repeat" class="ui-btn ui-shadow ui-btn-inline ui-corner-all ui-btn-icon-left ui-icon-refresh ui-btn-icon-notext"></button>
+  <button id="next" class="ui-btn ui-shadow ui-btn-inline ui-corner-all ui-btn-icon-right ui-icon-arrow-r ui-btn-icon-notext"></button>
+  </div>
+  <div id="stars">
+    <span>&#9734</span class="correct"><span>&#9734</span><span>&#9734</span><span>&#9734</span><span>&#9734</span>
+  </div>
+</div>
+</div>
+<div data-role="page" id="two" data-theme="b" data-url="two">
+  <div data-role="header">
+      <h1>The End...</h1>
+  </div>
+  <div data-role="content">
+      <p>Good Job!</p>
+  </div>
+  <div data-role="footer">
+    <button class="ui-btn ui-corner-all" id="play-again">Play Again</button>
+  </div>
+</div>
+  <script src="jquery.js"></script>
+  <script src="jquery.mobile-1.4.1.min.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

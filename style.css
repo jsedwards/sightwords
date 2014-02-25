@@ -1,0 +1,27 @@
+body {
+  background-color: red;
+  font-size: 1.2em;
+}
+
+#stars, #nav-buttons, h2 {
+  text-align: center;
+} 
+#stars > span {
+  display: inline-block;
+  position: relative;
+  width: 1.1em;
+  font-size: 1.5em;
+}
+span .correct {
+  color: purple;
+}
+
+button {
+  height: 4.5em;
+}
+button .ui-btn-a {
+  background-color: green;
+}
+button #next .waiting {
+  background-color: red;
+}
