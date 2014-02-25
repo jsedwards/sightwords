@@ -29,9 +29,9 @@ $(document).ready(function(){
       $("body").off("click", "#repeat", repeat_correct)
 
     } else {
-            var incorrect = new SpeechSynthesisUtterance("Sorry, try again");
-      window.speechSynthesis.speak(incorrect)
-      console.log("oops, incorrect")
+      //       var incorrect = new SpeechSynthesisUtterance("Sorry, try again");
+      // window.speechSynthesis.speak(incorrect)
+      // console.log("oops, incorrect")
     }
     console.log("data",$(this).attr("data-word"));
     }
