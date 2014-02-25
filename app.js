@@ -5,7 +5,7 @@ WORDS = ["AND","AWAY","BLUE","BIG","CAN","COME","DOWN","FIND","FOR","FUNNY","GO"
   var Game = {
     score: 0,
     current_correct: "",
-    words: ["AND","AWAY","BLUE","BIG","CAN","COME","DOWN","FIND","FOR","FUNNY","GO","HELP"]
+    words: ["AND","AWAY","BLUE","BIG","CAN","COME","DOWN","FIND","FOR","FUNNY","GO","HELP","GOES","HOME"."PLAY","RED","ONE","TWO","THREE","SEE","THE","SAID","UP","WE"]
   }
 $(document).ready(function(){
   $("body").on("click","button#play-again",go_to_home)
