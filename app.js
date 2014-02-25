@@ -5,7 +5,7 @@ WORDS = ["AND","AWAY","BLUE","BIG","CAN","COME","DOWN","FIND","FOR","FUNNY","GO"
   var Game = {
     score: 0,
     current_correct: "",
-    words: ["AND","AWAY","BLUE","BIG","CAN","COME","DOWN","FIND","FOR","FUNNY","GO","HELP"]
+    words: ["AND","AWAY","BLUE","BIG","CAN","COME","DOWN","FIND","FOR","FUNNY","GO","HELP","GOES","HOME","PLAY","RED","ONE","TWO","THREE","SEE","THE"]
   }
 $(document).ready(function(){
   $("body").on("click","button#play-again",go_to_home)
@@ -29,9 +29,9 @@ $(document).ready(function(){
       $("body").off("click", "#repeat", repeat_correct)
 
     } else {
-            var incorrect = new SpeechSynthesisUtterance("Sorry, try again");
-      window.speechSynthesis.speak(incorrect)
-      console.log("oops, incorrect")
+      //       var incorrect = new SpeechSynthesisUtterance("Sorry, try again");
+      // window.speechSynthesis.speak(incorrect)
+      // console.log("oops, incorrect")
     }
     console.log("data",$(this).attr("data-word"));
     }
