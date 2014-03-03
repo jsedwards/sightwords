@@ -1,97 +1,95 @@
-
-WORDS = ["AND","AWAY","BLUE","BIG","CAN","COME","DOWN","FIND","FOR","FUNNY","GO","HELP"]
-
-
-  var Game = {
-    score: 0,
-    current_correct: "",
-    words: ["AND","AWAY","BLUE","BIG","CAN","COME","DOWN","FIND","FOR","FUNNY","GO","HELP","GOES","HOME","PLAY","RED","ONE","TWO","THREE","SEE","THE"]
-  }
 $(document).ready(function(){
-  $("body").on("click","button#play-again",go_to_home)
-  console.log("ready")
-  new_words();
-  function correct_click(){
-    $("#words").on("click","button",add_corret_event)
-  }
-  function add_corret_event(){
-    console.log("this",this);
-    if ($(this).hasClass("correct")){
-      var correct = new SpeechSynthesisUtterance("Good Job");
-      window.speechSynthesis.speak(correct)
-      $(this).removeClass("correct")
-      console.log("correct")
-      $(this).addClass("ui-btn-a");
-         $(this).buttonMarkup({theme:"c"});
-      Game.score +=1;
-      update_stars();
-      $("#words").off("click",add_corret_event)
-      $("body").off("click", "#repeat", repeat_correct)
-
-    } else {
-      //       var incorrect = new SpeechSynthesisUtterance("Sorry, try again");
-      // window.speechSynthesis.speak(incorrect)
-      // console.log("oops, incorrect")
-    }
-    console.log("data",$(this).attr("data-word"));
-    }
-  correct_click();
-  $("body").on("click","#repeat", repeat_correct)
+  $("body").on("click","button#play-again",Game.go_to_home)
+  Game.new_words();
+  Game.correct_click();
+  $("body").on("click","#repeat", Game.repeat_correct)
   $("body").on("click","#next", function(e){
-    console.log("e",e);
-    console.log("this",this);
-    new_words();
-    correct_click();
+    Game.new_words();
+    Game.correct_click();
   })
 })
-function repeat_correct(){
-    console.log("this",this);
-    var correct_word = Game.current_correct;
-    speak_correct(correct_word)
-  }
-function new_words(){
-  $("button").buttonMarkup({theme:"a"})
-  $("button").removeClass("ui-btn-a")
-  var current_list = Game.words.slice(0);
-  for( var i=1; i<5;i++){
-    var word = current_list.splice(Math.floor(Math.random()*current_list.length),1)
-      console.log(i,word)
-    $("#words button:nth-child("+i+")").text(word).attr("data-word",word);
-  }
-  var position_of_correct = Math.floor(Math.random()*4+1);
-  var correct_word = $("#words button:nth-child("+position_of_correct+")").attr("data-word");
-  Game.current_correct = correct_word;
-  $("#words button:nth-child("+position_of_correct+")").addClass("correct");
-  $("button data-attr")
-  console.log("new_words",correct_word)
-  speak_correct(correct_word);
-  $("body").on("click","#repeat", repeat_correct)
-}
 
-function speak_correct(correct_word){
-  var word = new SpeechSynthesisUtterance(correct_word)
-  window.speechSynthesis.speak(word);
-  console.log("correct",correct_word)
-}
+var Game = {
+    score: 0,
+    current_correct: "",
+    words: ["AND","AWAY","BLUE","BIG","CAN","COME","DOWN","FIND","FOR","FUNNY","GO","HELP","GOES","HOME","PLAY","RED","ONE","TWO","THREE","SEE","THE"],
+  
+    correct_click: function(){
+      $("#words").on("click","button",this.add_correct_event);
+    },
 
-function congratulate(message){
-  var msg = new SpeechSynthesisUtterance(message);
-  window.speechSynthesis.speak(msg);
-}
-function go_to_home(){
-  window.location.href="#one";
-  console.log("what")
-  window.location.reload();
-}
-function update_stars(){
-  var number_of_stars = Game.score;
-  $("#stars span:nth-child("+number_of_stars+")").html("&#9733")
-  Game.words.splice(Game.words.indexOf(Game.current_correct),1)
-  if(Game.score === 5){
-    congratulate("you did it")
-    congratulate("do you want to play again")
-   window.location.href="#two"
-    // location.reload();
-  }
-  console.log(number_of_stars)
+    add_correct_event: function(){
+      if ($(this).hasClass("correct")){
+        var correct = new SpeechSynthesisUtterance("Good Job");
+        var voices = window.speechSynthesis.getVoices();
+        window.speechSynthesis.speak(correct);
+        $(this).removeClass("correct");
+        $(this).addClass("ui-btn-a");
+        $(this).buttonMarkup({theme:"c"});
+        Game.score +=1;
+        Game.update_stars();
+        $("#words").off("click",this.add_correct_event);
+        $("body").off("click", "#repeat", this.repeat_correct);
+      } 
+    },
+    
+    repeat_correct: function(){
+      var correct_word = Game.current_correct;
+      Game.speak_correct(correct_word);
+    },
+
+    prep_buttons_for_new_words: function(){
+      $("button").buttonMarkup({theme:"a"});
+      $("button").removeClass("ui-btn-a");
+    },
+
+    randomly_select_correct_word: function(){
+      var position_of_correct = Math.floor(Math.random()*4+1);
+      this.correct_word = $("#words button:nth-child("+position_of_correct+")").attr("data-word");
+      this.current_correct = this.correct_word;
+      $("#words button:nth-child("+position_of_correct+")").addClass("correct");
+    },
+
+    new_words: function(){
+      this.prep_buttons_for_new_words();
+      var current_list = Game.words.slice(0);
+      for( var i=1; i<5;i++){
+      var word = current_list.splice(Math.floor(Math.random()*current_list.length),1);
+      $("#words button:nth-child("+i+")").text(word).attr("data-word",word);
+      }
+      this.randomly_select_correct_word();
+      this.speak_correct(this.correct_word);
+      $("body").on("click","#repeat", this.repeat_correct);
+      },
+
+      speak_correct: function(correct_word){
+        var word = new SpeechSynthesisUtterance(correct_word);
+        window.speechSynthesis.speak(word);
+      },
+
+      congratulate: function(message){
+        var msg = new SpeechSynthesisUtterance(message);
+        window.speechSynthesis.speak(msg);
+      },
+
+      go_to_home: function(){
+        window.location.href="#one";
+        window.location.reload();
+      },
+
+      update_stars: function(){
+        var number_of_stars = Game.score;
+        $("#stars span:nth-child("+number_of_stars+")").html("&#9733");
+        Game.words.splice(Game.words.indexOf(Game.current_correct),1);
+        this.check_if_five_stars();
+       }, 
+
+       check_if_five_stars: function(){
+        if(Game.score === 5){
+          this.congratulate("you did it");
+          this.congratulate("do you want to play again");
+          window.location.href="#two";
+          Game.score = 0;
+        }
+      }
 }
